@@ -105,39 +105,101 @@ protocols: [ HTTPS ]
           description: Save borrow.
         500:
           description: An error was occurred.
+  /{borrowId}:
+    put:
+      description: Update One Borrow.
+      body:
+        application/json:
+          type: object
+          example: |
+            {
+              "id": 1,
+              "loan_date": "2023-06-07T15:01:27.488+00:00",
+              "expected_end_date": "2023-06-07T15:01:27.488+00:00",
+              "borrow_end": "2023-06-07T15:01:27.488+00:00"
+            }
+      responses:
+        200:
+          description: Update Borrow.
+        404:
+          description: Borrow not found.
+        500:
+          description: An error was occurred.
+    delete:
+      description: Delete a Borrow
+      queryParameters:
+        id:
+          description: Borrow Id
+          type: integer
+          required: true
+          example: 1
+      responses:
+        204:
+          description: Delete borrow.
+        404:
+          description: Borrow not found.
+        500:
+          description: An error was occurred.
 
-/{borrowId}:
-  put:
-    description: Update One Borrow.
-    body:
-      application/json:
-        type: object
-        example: |
-          {
-            "id": 1,
-            "loan_date": "2023-06-07T15:01:27.488+00:00",
-            "expected_end_date": "2023-06-07T15:01:27.488+00:00",
-            "borrow_end": "2023-06-07T15:01:27.488+00:00"
-          }
-    responses:
-      200:
-        description: Update Borrow.
-      404:
-        description: Borrow not found.
-      500:
-        description: An error was occurred.
-  delete:
-    description: Delete a Borrow
-    queryParameters:
-      id:
-        description: Borrow Id
-        type: integer
-        required: true
-        example: 1
-    responses:
-      204:
-        description: Delete book.
-      404:
-        description: Borrow not found.
-      500:
-        description: An error was occurred.
+/category:
+  /:
+    get:
+      description: Get All Categories.
+      responses:
+        200:
+          description: Get all categories information's.
+        204:
+          description: No category inserted in DB.
+        500:
+          description: An error was occurred.
+    post:
+      description: Create a Category.
+      body:
+        application/json:
+          type: object
+          example: |
+            {
+              "loan_date": "2023-06-07T15:01:27.488+00:00",
+              "expected_end_date": "2023-06-07T15:01:27.488+00:00",
+              "borrow_end": null
+            }
+      responses:
+        201:
+          description: Save category.
+        500:
+          description: An error was occurred.
+  /{categoryId}:
+    put:
+      description: Update One Category.
+      body:
+        application/json:
+          type: object
+          example: |
+            {
+              "id": 1,
+              "loan_date": "2023-06-07T15:01:27.488+00:00",
+              "expected_end_date": "2023-06-07T15:01:27.488+00:00",
+              "borrow_end": "2023-06-07T15:01:27.488+00:00"
+            }
+      responses:
+        200:
+          description: Update Category.
+        404:
+          description: Category not found.
+        500:
+          description: An error was occurred.
+    delete:
+      description: Delete a Category
+      queryParameters:
+        id:
+          description: Category Id
+          type: integer
+          required: true
+          example: 1
+      responses:
+        204:
+          description: Delete Category.
+        404:
+          description: Category not found.
+        500:
+          description: An error was occurred.
