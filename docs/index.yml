@@ -123,7 +123,7 @@ protocols: [ HTTPS ]
             "category": "N/A
           }
     responses:
-      204:
+      200:
         description: Update book.
       400:
         description: Error with the passed parameters.
