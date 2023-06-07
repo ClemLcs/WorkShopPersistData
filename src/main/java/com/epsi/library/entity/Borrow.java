@@ -12,12 +12,25 @@ import java.util.Date;
 @Setter
 public class Borrow {
     Date loan_date;
+
     Date expected_end_date;
+
+    @Column(nullable = true)
     Date borrow_end;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pk_borrow", nullable = false)
     private Long id;
 
+    public Borrow(Date loanDate, Date expectedEndDate, Date borrowEnd) {
+        this.loan_date = loanDate;
+        this.expected_end_date = expectedEndDate;
+        this.borrow_end = borrowEnd;
+    }
+
+    public Borrow() {
+
+    }
 }
 
