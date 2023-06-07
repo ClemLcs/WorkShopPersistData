@@ -43,16 +43,6 @@ protocols: [ HTTPS ]
                 }
         500:
           description: An error was occurred.
-
-  /{bookId}:
-    get:
-      description: Get Book Info.
-      200:
-        description: Book info.
-      404:
-        description: Book not found.
-      500:
-        description: An error was occurred.
     put:
       description: Update One Book.
       body:
@@ -77,6 +67,15 @@ protocols: [ HTTPS ]
           description: Book not found.
         500:
           description: An error was occurred.
+  /{bookId}:
+    get:
+      description: Get Book Info.
+      200:
+        description: Book info.
+      404:
+        description: Book not found.
+      500:
+        description: An error was occurred.
 
 /borrow:
   /:
@@ -105,7 +104,6 @@ protocols: [ HTTPS ]
           description: Save borrow.
         500:
           description: An error was occurred.
-  /{borrowId}:
     put:
       description: Update One Borrow.
       body:
@@ -125,6 +123,7 @@ protocols: [ HTTPS ]
           description: Borrow not found.
         500:
           description: An error was occurred.
+  /{borrowId}:
     delete:
       description: Delete a Borrow
       queryParameters:
@@ -159,35 +158,32 @@ protocols: [ HTTPS ]
           type: object
           example: |
             {
-              "loan_date": "2023-06-07T15:01:27.488+00:00",
-              "expected_end_date": "2023-06-07T15:01:27.488+00:00",
-              "borrow_end": null
+              "name": "Science"
             }
       responses:
         201:
           description: Save category.
         500:
           description: An error was occurred.
-  /{categoryId}:
-    put:
-      description: Update One Category.
-      body:
-        application/json:
-          type: object
-          example: |
-            {
-              "id": 1,
-              "loan_date": "2023-06-07T15:01:27.488+00:00",
-              "expected_end_date": "2023-06-07T15:01:27.488+00:00",
-              "borrow_end": "2023-06-07T15:01:27.488+00:00"
-            }
-      responses:
-        200:
-          description: Update Category.
-        404:
-          description: Category not found.
-        500:
-          description: An error was occurred.
+  put:
+    description: Update One Category.
+    body:
+      application/json:
+        type: object
+        example: |
+          {
+            "id": 1,
+            "name": "New Science",
+          }
+    responses:
+      200:
+        description: Update Category.
+      404:
+        description: Category not found.
+      500:
+        description: An error was occurred.
+
+  /categoryId:
     delete:
       description: Delete a Category
       queryParameters:
