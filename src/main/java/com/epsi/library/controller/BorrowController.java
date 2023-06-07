@@ -21,7 +21,7 @@ public class BorrowController {
     /**
      * Allows to get all borrows
      *
-     * @return HTTP code 204 / 200 / 500
+     * @return 204 / 200 / 500 HTTP code
      */
     @GetMapping("")
     public ResponseEntity<List<Borrow>> getAll() {
@@ -43,7 +43,7 @@ public class BorrowController {
      * Allows to create a Borrow.
      *
      * @param borrowRequest
-     * @return HTTP code  201 / 500
+     * @return 201 / 500 HTTP code
      */
     @PostMapping("")
     public ResponseEntity<Borrow> create(@RequestBody Borrow borrowRequest) {
@@ -60,7 +60,7 @@ public class BorrowController {
      * Allows to update a borrow
      *
      * @param borrowRequest
-     * @return HTTP code 200 / 404 / 500
+     * @return 200 / 404 / 500 HTTP code
      */
     @PutMapping("")
     public ResponseEntity<Borrow> update(@RequestBody Borrow borrowRequest) {
@@ -80,6 +80,26 @@ public class BorrowController {
 
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Allows to delete a borrow
+     *
+     * @param id Borrow Id
+     * @return 201 / 404 / 500 HTTP Code
+     */
+    @DeleteMapping("")
+    public ResponseEntity<Borrow> delete(@RequestParam Long id) {
+        try {
+            Optional<Borrow> _borrow = borrowRepository.findById(id);
+            if (_borrow.isPresent()) {
+                borrowRepository.deleteById(id);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
