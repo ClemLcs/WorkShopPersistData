@@ -114,25 +114,26 @@ protocols: [ HTTPS ]
         type: object
         example: |
           {
-            "bookId": 1,
-            "title": "Test",
-            "publication_date": "06/07/2023",
-            "page_number": 15,
-            "authors": "N/A",
-            "borrow": "N/A", 
-            "category": "N/A
+            "id": 1,
+            "loan_date": "2023-06-07T15:01:27.488+00:00",
+            "expected_end_date": "2023-06-07T15:01:27.488+00:00",
+            "borrow_end": "2023-06-07T15:01:27.488+00:00"
           }
     responses:
       200:
-        description: Update book.
-      400:
-        description: Error with the passed parameters.
+        description: Update Borrow.
       404:
         description: Borrow not found.
       500:
         description: An error was occurred.
   delete:
     description: Delete a Borrow
+    queryParameters:
+      id:
+        description: Borrow Id
+        type: integer
+        required: true
+        example: 1
     responses:
       204:
         description: Delete book.
