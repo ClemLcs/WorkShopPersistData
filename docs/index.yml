@@ -4,7 +4,7 @@ title: Workshop Persist Data
 baseUri: https://workshop-persist-data.locascio.fr
 mediaType: application/json
 version: v1
-protocols: [HTTPS]
+protocols: [ HTTPS ]
 
 /book:
   /:
@@ -27,14 +27,32 @@ protocols: [HTTPS]
               "page_number": 15
             }
       responses:
-        204:
+        200:
           description: Save book.
         400:
           description: Error with the passed parameters.
+          body:
+            application/json:
+              type: object
+              example: |
+                {
+                	"timestamp": "2023-06-07T15:01:27.488+00:00",
+                	"status": 400,
+                	"error": "Bad Request",
+                	"path": "/book/"
+                }
         500:
           description: An error was occurred.
 
   /{bookId}:
+    get:
+      description: Get Book Info.
+      200:
+        description: Book info.
+      404:
+        description: Book not found.
+      500:
+        description: An error was occurred.
     put:
       description: Update One Book.
       body:
@@ -59,12 +77,68 @@ protocols: [HTTPS]
           description: Book not found.
         500:
           description: An error was occurred.
-    delete:
-      description: Delete a Book
+
+/borrow:
+  /:
+    get:
+      description: Get All Borrows.
       responses:
+        200:
+          description: Get all borrows information's.
         204:
-          description: Delete book.
-        404:
-          description: Book not found.
+          description: No borrow inserted in DB.
         500:
           description: An error was occurred.
+    post:
+      description: Create a Borrow.
+      body:
+        application/json:
+          type: object
+          example: |
+            {
+              "title": "Test",
+              "publication_date": "06/07/2023",
+              "page_number": 15
+            }
+      responses:
+        204:
+          description: Save borrow.
+        400:
+          description: Error with the passed parameters.
+        500:
+          description: An error was occurred.
+
+/{borrowId}:
+  put:
+    description: Update One Borrow.
+    body:
+      application/json:
+        type: object
+        example: |
+          {
+            "bookId": 1,
+            "title": "Test",
+            "publication_date": "06/07/2023",
+            "page_number": 15,
+            "authors": "N/A",
+            "borrow": "N/A", 
+            "category": "N/A
+          }
+    responses:
+      204:
+        description: Update book.
+      400:
+        description: Error with the passed parameters.
+      404:
+        description: Borrow not found.
+      500:
+        description: An error was occurred.
+  delete:
+    description: Delete a Borrow
+    responses:
+      204:
+        description: Delete book.
+      404:
+        description: Borrow not found.
+      500:
+        description: An error was occurred.
