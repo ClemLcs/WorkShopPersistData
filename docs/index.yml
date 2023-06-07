@@ -173,7 +173,7 @@ protocols: [ HTTPS ]
         example: |
           {
             "id": 1,
-            "name": "New Science",
+            "name": "New Science"
           }
     responses:
       200:
