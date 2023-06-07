@@ -1,0 +1,70 @@
+#%RAML 1.0
+---
+title: Workshop Persist Data
+baseUri: https://workshop-persist-data.locascio.fr
+mediaType: application/json
+version: v1
+protocols: [HTTPS]
+
+/book:
+  /:
+    get:
+      description: Get All Books.
+      responses:
+        204:
+          description: Get all books information's.
+        500:
+          description: An error was occurred.
+    post:
+      description: Create a Book.
+      body:
+        application/json:
+          type: object
+          example: |
+            {
+              "title": "Test",
+              "publication_date": "06/07/2023",
+              "page_number": 15
+            }
+      responses:
+        204:
+          description: Save book.
+        400:
+          description: Error with the passed parameters.
+        500:
+          description: An error was occurred.
+
+  /{bookId}:
+    put:
+      description: Update One Book.
+      body:
+        application/json:
+          type: object
+          example: |
+            {
+              "bookId": 1,
+              "title": "Test",
+              "publication_date": "06/07/2023",
+              "page_number": 15,
+              "authors": "N/A",
+              "borrow": "N/A", 
+              "category": "N/A
+            }
+      responses:
+        204:
+          description: Update book.
+        400:
+          description: Error with the passed parameters.
+        404:
+          description: Book not found.
+        500:
+          description: An error was occurred.
+    delete:
+      description: Delete a Book
+      responses:
+        204:
+          description: Delete book.
+        404:
+          description: Book not found.
+        500:
+          description: An error was occurred.
