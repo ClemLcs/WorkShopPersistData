@@ -14,4 +14,11 @@ public class Category {
     @Column(name = "pk_category", nullable = false)
     private Long id;
 
+    public Category(String name) {
+        this.name = name;
+    }
+
+    public Category() {
+
+    }
 }
