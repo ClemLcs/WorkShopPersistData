@@ -6,12 +6,11 @@ import com.epsi.library.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/book")
@@ -25,7 +24,7 @@ public class BookController {
     /**
      * Allows to get all books save in DB
      *
-     * @return ResponseEntity
+     * @return ResponseEntity 200 / 500
      */
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ResponseEntity<List<Book>> readAll() {
@@ -34,6 +33,27 @@ public class BookController {
             bookRepository.findAll().forEach(books::add);
 
             return new ResponseEntity<>(books, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Allows to get information about a book
+     *
+     * @param id Book identifier
+     * @return ResponseEntity 200 / 400 / 500
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<Book> getBookPerId(@PathVariable("id") long id) {
+        try {
+            Optional<Book> bookData = bookRepository.findById(id);
+
+            if (bookData.isPresent()) {
+                return new ResponseEntity<>(bookData.get(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
