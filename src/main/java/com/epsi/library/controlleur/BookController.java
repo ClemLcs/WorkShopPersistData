@@ -39,6 +39,33 @@ public class BookController {
     }
 
     /**
+     * Allows to create a Book
+     *
+     * @param bookRequest
+     * @return
+     */
+    @PostMapping("")
+    public ResponseEntity<Book> create(@RequestBody Book bookRequest) {
+        try {
+
+            Book _book = bookRepository.save(
+                    new Book(
+                            bookRequest.getTitle(),
+                            bookRequest.getPublication_date(),
+                            bookRequest.getPage_number(),
+                            bookRequest.getCategory(),
+                            bookRequest.getBorrow(),
+                            bookRequest.getAuthors()
+                    )
+            );
+
+            return new ResponseEntity<>(_book, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * Allows to get information about a book
      *
      * @param id Book identifier

@@ -35,4 +35,16 @@ public class Book {
     @JoinColumn(name = "fk_borrow")
     private Borrow borrow;
 
+    public Book() {
+
+    }
+
+    public Book(String title, Date publicationDate, Integer pageNumber, Category category, Borrow borrow, Collection<Author> authors) {
+        this.title = title;
+        this.publication_date = publicationDate;
+        this.page_number = pageNumber;
+        this.category = category;
+        this.borrow = borrow;
+        this.authors = authors;
+    }
 }
