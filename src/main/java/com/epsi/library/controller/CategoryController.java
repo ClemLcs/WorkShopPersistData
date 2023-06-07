@@ -1,5 +1,6 @@
 package com.epsi.library.controller;
 
+import com.epsi.library.entity.Borrow;
 import com.epsi.library.entity.Category;
 import com.epsi.library.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,26 @@ public class CategoryController {
 
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Allows to delete a category
+     *
+     * @param id Category Id
+     * @return 201 / 404 / 500 HTTP Code
+     */
+    @DeleteMapping("")
+    public ResponseEntity<Borrow> delete(@RequestParam Long id) {
+        try {
+            Optional<Category> _category = categoryRepository.findById(id);
+            if (_category.isPresent()) {
+                categoryRepository.deleteById(id);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
