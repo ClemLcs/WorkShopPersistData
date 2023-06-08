@@ -226,13 +226,6 @@ protocols: [ HTTPS ]
           description: Always logged
         404:
           description: User not found
-          body:
-            application/json:
-              example: |
-                {
-                  "field": ["error"],
-                  "message": ["L'email et/ou le mot de passe est incorrect"]
-                }
         500:
           description: An error was occurred.
   /register:
@@ -244,11 +237,12 @@ protocols: [ HTTPS ]
           example: |
             {
               "email": "test@test.com",
+              "password": "test",
               "firstname": "Test",
               "lastname": "Test"
             }
       responses:
-        200:
+        204:
           description: Member created.
         400:
           description: Error with the passed parameters.
