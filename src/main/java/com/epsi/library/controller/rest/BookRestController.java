@@ -74,4 +74,10 @@ public class BookRestController {
         List<Borrow> borrows = bookService.getActiveBorrows();
         return new ResponseEntity<>(borrows, HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Book>> searchBooksByAuthor(@RequestParam String authorName) {
+        List<Book> books = bookService.searchBooksByAuthor(authorName);
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
 }
