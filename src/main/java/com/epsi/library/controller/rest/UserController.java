@@ -1,4 +1,4 @@
-package com.epsi.library.controller;
+package com.epsi.library.controller.rest;
 
 import com.epsi.library.entity.User;
 import com.epsi.library.repository.RoleRepository;

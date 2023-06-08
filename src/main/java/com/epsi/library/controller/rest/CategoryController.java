@@ -1,4 +1,4 @@
-package com.epsi.library.controller;
+package com.epsi.library.controller.rest;
 
 import com.epsi.library.entity.Borrow;
 import com.epsi.library.entity.Category;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/category")
+@RequestMapping(path = "/rest/category")
 public class CategoryController {
     @Autowired
     CategoryRepository categoryRepository;
