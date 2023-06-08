@@ -215,7 +215,7 @@ protocols: [ HTTPS ]
             }
       responses:
         204:
-          description: Member created.
+          description: User created.
         400:
           description: Error with the passed parameters.
           body:
