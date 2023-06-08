@@ -208,9 +208,19 @@ protocols: [ HTTPS ]
           500:
             description: An error was occurred.
   /auth:
+    /:
+      get:
+        description: Get all users.
+        responses:
+          200:
+            description: Get all users.
+          204:
+            description: Not user in DB.
+          500:
+            description: An error was occurred.
     /register:
       post:
-        description: Allows to create account
+        description: Allows to create account.
         body:
           application/json:
             type: object
