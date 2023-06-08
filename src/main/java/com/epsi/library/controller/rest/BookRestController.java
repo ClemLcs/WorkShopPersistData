@@ -1,88 +1,57 @@
 package com.epsi.library.controller.rest;
 
 import com.epsi.library.entity.Book;
-import com.epsi.library.repository.BookRepository;
-import com.epsi.library.repository.CategoryRepository;
+import com.epsi.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/rest/book")
+@RequestMapping("/rest/book")
 public class BookRestController {
-    @Autowired
-    BookRepository bookRepository;
 
     @Autowired
-    CategoryRepository categoryRepository;
+    private BookService bookService;
 
-    /**
-     * Allows to get all books save in DB
-     *
-     * @return ResponseEntity 200 / 500
-     */
-    @RequestMapping(path = "", method = RequestMethod.GET)
-    public ResponseEntity<List<Book>> readAll() {
-        try {
-            List<Book> books = new ArrayList<Book>();
-            bookRepository.findAll().forEach(books::add);
-
-            return new ResponseEntity<>(books, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @GetMapping("")
+    public ResponseEntity<List<Book>> getAllBooks() {
+        List<Book> books = bookService.getAllBooks();
+        return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
-    /**
-     * Allows to create a Book
-     *
-     * @param bookRequest
-     * @return
-     */
-    @PostMapping("")
-    public ResponseEntity<Book> create(@RequestBody Book bookRequest) {
-        try {
-
-            Book _book = bookRepository.save(
-                    new Book(
-                            bookRequest.getTitle(),
-                            bookRequest.getPublication_date(),
-                            bookRequest.getPage_number(),
-                            bookRequest.getCategory(),
-                            bookRequest.getBorrow(),
-                            bookRequest.getAuthors()
-                    )
-            );
-
-            return new ResponseEntity<>(_book, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    /**
-     * Allows to get information about a book
-     *
-     * @param id Book identifier
-     * @return ResponseEntity 200 / 400 / 500
-     */
     @GetMapping("/{id}")
-    public ResponseEntity<Book> getBookPerId(@PathVariable("id") long id) {
-        try {
-            Optional<Book> bookData = bookRepository.findById(id);
-
-            if (bookData.isPresent()) {
-                return new ResponseEntity<>(bookData.get(), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<Book> getBookById(@PathVariable Long id) {
+        Book book = bookService.getBookById(id);
+        if (book != null) {
+            return new ResponseEntity<>(book, HttpStatus.OK);
         }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Book> createBook(@RequestBody Book book) {
+        Book createdBook = bookService.createBook(book);
+        return new ResponseEntity<>(createdBook, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book updatedBook) {
+        Book book = bookService.updateBook(id, updatedBook);
+        if (book != null) {
+            return new ResponseEntity<>(book, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
+        boolean deleted = bookService.deleteBook(id);
+        if (deleted) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

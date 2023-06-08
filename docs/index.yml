@@ -44,6 +44,16 @@ protocols: [ HTTPS ]
                   }
           500:
             description: An error was occurred.
+
+    /{bookId}:
+      get:
+        description: Get Book Info.
+        200:
+          description: Book info.
+        404:
+          description: Book not found.
+        500:
+          description: An error was occurred.
       put:
         description: Update One Book.
         body:
@@ -68,16 +78,13 @@ protocols: [ HTTPS ]
             description: Book not found.
           500:
             description: An error was occurred.
-    /{bookId}:
-      get:
-        description: Get Book Info.
-        200:
-          description: Book info.
-        404:
-          description: Book not found.
-        500:
-          description: An error was occurred.
-
+      delete:
+        description: Delete a book
+        responses:
+          201:
+            description: Book deleted.
+          404:
+            description: Book not found.
   /borrow:
     /:
       get:
