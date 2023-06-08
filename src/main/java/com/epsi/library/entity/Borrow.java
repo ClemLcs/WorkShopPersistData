@@ -20,7 +20,7 @@ public class Borrow {
 
     @ManyToOne
     @JoinColumn(name = "fk_member", nullable = true)
-    private Member member;
+    private User member;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
