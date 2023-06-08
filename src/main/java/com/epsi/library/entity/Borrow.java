@@ -11,9 +11,9 @@ import java.util.Date;
 @Getter
 @Setter
 public class Borrow {
-    Date loan_date;
+    Date borrowDate;
 
-    Date expected_end_date;
+    Date returnDate;
 
     @Column(nullable = true)
     Date borrow_end;
@@ -25,11 +25,11 @@ public class Borrow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pk_borrow", nullable = false)
-    private Long id;
+    private Long bookId;
 
-    public Borrow(Date loanDate, Date expectedEndDate, Date borrowEnd) {
-        this.loan_date = loanDate;
-        this.expected_end_date = expectedEndDate;
+    public Borrow(Date borrowDate, Date returnDate, Date borrowEnd) {
+        this.borrowDate = borrowDate;
+        this.returnDate = returnDate;
         this.borrow_end = borrowEnd;
     }
 

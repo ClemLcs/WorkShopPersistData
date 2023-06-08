@@ -49,7 +49,7 @@ public class BorrowController {
     public ResponseEntity<Borrow> create(@RequestBody Borrow borrowRequest) {
         try {
             Borrow _borrow = borrowRepository
-                    .save(new Borrow(borrowRequest.getLoan_date(), borrowRequest.getExpected_end_date(), borrowRequest.getBorrow_end()));
+                    .save(new Borrow(borrowRequest.getBorrowDate(), borrowRequest.getReturnDate(), borrowRequest.getBorrow_end()));
             return new ResponseEntity<>(_borrow, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -65,12 +65,12 @@ public class BorrowController {
     @PutMapping("")
     public ResponseEntity<Borrow> update(@RequestBody Borrow borrowRequest) {
         try {
-            if (borrowRequest.getId() != null) {
-                Optional<Borrow> _borrow = borrowRepository.findById(borrowRequest.getId());
+            if (borrowRequest.getBookId() != null) {
+                Optional<Borrow> _borrow = borrowRepository.findById(borrowRequest.getBookId());
                 if (_borrow.isPresent()) {
                     Borrow _borrowData = _borrow.get();
-                    _borrowData.setLoan_date(borrowRequest.getLoan_date());
-                    _borrowData.setExpected_end_date(borrowRequest.getExpected_end_date());
+                    _borrowData.setBorrowDate(borrowRequest.getBorrowDate());
+                    _borrowData.setReturnDate(borrowRequest.getReturnDate());
                     _borrowData.setBorrow_end(borrowRequest.getBorrow_end());
 
                     return new ResponseEntity<>(borrowRepository.save(_borrowData), HttpStatus.OK);
