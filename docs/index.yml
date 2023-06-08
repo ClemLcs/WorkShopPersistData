@@ -257,8 +257,10 @@ protocols: [ HTTPS ]
               type: object
               example: |
                 {
-                  "field": ["email", "password"],
-                  "message": ["Veuillez renseignez un email valide", "Le mot de passe doit être au minimum de 6 caractères"]
+                  "timestamp": "2023-06-08T08:38:48.650+00:00",
+                  "status": 400,
+                  "error": "Bad Request",
+                  "path": "/auth/register"
                 }
         500:
           description: An error was occurred.
