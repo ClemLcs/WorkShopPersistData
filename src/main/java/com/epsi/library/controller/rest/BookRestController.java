@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -53,5 +54,11 @@ public class BookRestController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/borrow-count")
+    public ResponseEntity<Integer> getBorrowCountByDateRange(@RequestParam Date startDate, @RequestParam Date endDate) {
+        int count = bookService.getBorrowCountByDateRange(startDate, endDate);
+        return new ResponseEntity<>(count, HttpStatus.OK);
     }
 }
