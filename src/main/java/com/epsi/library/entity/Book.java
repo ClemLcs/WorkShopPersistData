@@ -24,8 +24,8 @@ public class Book {
     @ManyToMany
     @JoinTable(name = "book_authors",
             joinColumns = @JoinColumn(name = "fk_book"),
-            inverseJoinColumns = @JoinColumn(name = "fk_author"))
-    private Collection<Author> authors = new ArrayList<>();
+            inverseJoinColumns = @JoinColumn(name = "fk_users"))
+    private Collection<User> authors = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "fk_category")
@@ -39,7 +39,7 @@ public class Book {
 
     }
 
-    public Book(String title, Date publicationDate, Integer pageNumber, Category category, Borrow borrow, Collection<Author> authors) {
+    public Book(String title, Date publicationDate, Integer pageNumber, Category category, Borrow borrow, Collection<User> authors) {
         this.title = title;
         this.publication_date = publicationDate;
         this.page_number = pageNumber;

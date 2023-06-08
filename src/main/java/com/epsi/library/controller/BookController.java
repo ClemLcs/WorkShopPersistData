@@ -1,4 +1,4 @@
-package com.epsi.library.controlleur;
+package com.epsi.library.controller;
 
 import com.epsi.library.entity.Book;
 import com.epsi.library.repository.BookRepository;
