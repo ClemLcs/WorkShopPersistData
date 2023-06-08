@@ -18,6 +18,10 @@ public class Borrow {
     @Column(nullable = true)
     Date borrow_end;
 
+    @ManyToOne
+    @JoinColumn(name = "fk_member", nullable = true)
+    private Member member;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pk_borrow", nullable = false)

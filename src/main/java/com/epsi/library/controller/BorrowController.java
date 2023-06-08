@@ -50,7 +50,7 @@ public class BorrowController {
         try {
             Borrow _borrow = borrowRepository
                     .save(new Borrow(borrowRequest.getLoan_date(), borrowRequest.getExpected_end_date(), borrowRequest.getBorrow_end()));
-            return new ResponseEntity<>(_borrow, HttpStatus.CREATED);
+            return new ResponseEntity<>(_borrow, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -199,3 +199,34 @@ protocols: [ HTTPS ]
           description: Category not found.
         500:
           description: An error was occurred.
+/auth:
+  /register:
+    post:
+      description: Allows to create account
+      body:
+        application/json:
+          type: object
+          example: |
+            {
+              "email": "test@test.com",
+              "password": "test",
+              "firstname": "Test",
+              "lastname": "Test"
+            }
+      responses:
+        204:
+          description: Member created.
+        400:
+          description: Error with the passed parameters.
+          body:
+            application/json:
+              type: object
+              example: |
+                {
+                  "timestamp": "2023-06-08T08:38:48.650+00:00",
+                  "status": 400,
+                  "error": "Bad Request",
+                  "path": "/auth/register"
+                }
+        500:
+          description: An error was occurred.
