@@ -1,6 +1,7 @@
 package com.epsi.library.controller.rest;
 
 import com.epsi.library.entity.Book;
+import com.epsi.library.entity.Borrow;
 import com.epsi.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,5 +67,11 @@ public class BookRestController {
     public ResponseEntity<Integer> getBorrowCountByBook(@PathVariable Long id) {
         int count = bookService.getBorrowCountByBook(id);
         return new ResponseEntity<>(count, HttpStatus.OK);
+    }
+
+    @GetMapping("/active-borrows")
+    public ResponseEntity<List<Borrow>> getActiveBorrows() {
+        List<Borrow> borrows = bookService.getActiveBorrows();
+        return new ResponseEntity<>(borrows, HttpStatus.OK);
     }
 }
