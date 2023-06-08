@@ -61,4 +61,10 @@ public class BookRestController {
         int count = bookService.getBorrowCountByDateRange(startDate, endDate);
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
+
+    @GetMapping("/{id}/borrow-count")
+    public ResponseEntity<Integer> getBorrowCountByBook(@PathVariable Long id) {
+        int count = bookService.getBorrowCountByBook(id);
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
 }
