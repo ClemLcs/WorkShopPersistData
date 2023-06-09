@@ -5,6 +5,17 @@ at [EPSI Students in Bordeaux](https://www.epsi.fr/campus/campus-de-bordeaux/).
 
 It simulates a library management system.
 
+## Usage/Examples
+
+
+Click Here: 
+
+[![img](https://gcdnb.pbrd.co/images/XuLiaNGnYugx.png?o=1)](https://rawcdn.githack.com/ClemLcs/WorkShopPersistData/tree/main/docs/index.html)
+
+<br>
+
+_If not, download the filer [index.html](./docs/index.html) then open it in your browser to access the interactive documentation._
+
 ## Tech Stack
 
 **Server:** Spring Boot
