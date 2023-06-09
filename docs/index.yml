@@ -96,13 +96,15 @@ protocols: [ HTTPS ]
         responses:
           200:
     /active-borrows:
-      description: Get the current loans
-      responses:
-        200:
+      get:
+        description: Get the current loans
+        responses:
+          200:
     /search:
-      description: Search a books by author
-      responses:
-        200:
+      get:
+        description: Search a books by author
+        responses:
+          200:
   /borrow:
     /:
       get:
