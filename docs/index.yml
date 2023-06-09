@@ -195,25 +195,29 @@ protocols: [ HTTPS ]
             description: Save category.
           500:
             description: An error was occurred.
-    put:
-      description: Update One Category.
-      body:
-        application/json:
-          type: object
-          example: |
-            {
-              "id": 1,
-              "name": "New Science"
-            }
-      responses:
-        200:
-          description: Update Category.
-        404:
-          description: Category not found.
-        500:
-          description: An error was occurred.
-
     /categoryId:
+      get:
+        description: Get information on a category
+        responses:
+          200:
+          404:
+      put:
+        description: Update One Category.
+        body:
+          application/json:
+            type: object
+            example: |
+              {
+                "id": 1,
+                "name": "New Science"
+              }
+        responses:
+          200:
+            description: Update Category.
+          404:
+            description: Category not found.
+          500:
+            description: An error was occurred.
       delete:
         description: Delete a Category
         queryParameters:
