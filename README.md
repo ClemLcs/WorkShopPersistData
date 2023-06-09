@@ -13,16 +13,17 @@ It simulates a library management system.
 
 To run this project, you will need to add the following environment variables to your environment
 
-| Name               | Type    | Description                                                                                                          | Example             |
-|--------------------|---------|----------------------------------------------------------------------------------------------------------------------|---------------------|
-| `serverPort`       | integer | Application Port                                                                                                     | 8080                |
-| `dbServer`         | string  | IP Address MYSQL Server                                                                                              | 127.0.0.1           |
-| `dbPort`           | integer | MYSQL Server   Port                                                                                                  | 3306                |
-| `dbName`           | string  | MYSQL Database Name                                                                                                  | workshopPersistData |
-| `dbUser`           | string  | MYSQL Username                                                                                                       | persistData         |
-| `dbPasswd`         | string  | MSQL User Password                                                                                                   | 123456              |
-| `generateDDL`      | boolean | [More Info](https://docs.spring.io/spring-boot/docs/1.0.2.RELEASE/reference/html/howto-database-initialization.html) | true                |
-| `hibernateDllAuto` | string  | [More Info](https://docs.spring.io/spring-boot/docs/1.0.2.RELEASE/reference/html/howto-database-initialization.html) | update              |
+| Name               | Type    | Description                                                                                                          | Example               |
+|--------------------|---------|----------------------------------------------------------------------------------------------------------------------|-----------------------|
+| `serverPort`       | integer | Application Port                                                                                                     | 8080                  |
+| `dbServer`         | string  | IP Address MYSQL Server                                                                                              | 127.0.0.1             |
+| `dbPort`           | integer | MYSQL Server   Port                                                                                                  | 3306                  |
+| `dbName`           | string  | MYSQL Database Name                                                                                                  | workshopPersistData   |
+| `dbUser`           | string  | MYSQL Username                                                                                                       | persistData           |
+| `dbPasswd`         | string  | MSQL User Password                                                                                                   | 123456                |
+| `generateDDL`      | boolean | [More Info](https://docs.spring.io/spring-boot/docs/1.0.2.RELEASE/reference/html/howto-database-initialization.html) | true                  |
+| `hibernateDllAuto` | string  | [More Info](https://docs.spring.io/spring-boot/docs/1.0.2.RELEASE/reference/html/howto-database-initialization.html) | update                |
+| `restServerUrl`    | string  | Rest Server Url                                                                                                      | http://localhost:8085 |
 
 ## FAQ
 
