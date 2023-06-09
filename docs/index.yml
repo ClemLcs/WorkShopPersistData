@@ -85,6 +85,24 @@ protocols: [ HTTPS ]
             description: Book deleted.
           404:
             description: Book not found.
+    /borrow-count:
+      get:
+        description: Get the number of loans over a given date range.
+        responses:
+          200:
+    /{bookId}/borrow-count:
+      get:
+        description: Get the number of loans per book
+        responses:
+          200:
+    /active-borrows:
+      description: Get the current loans
+      responses:
+        200:
+    /search:
+      description: Search a books by author
+      responses:
+        200:
   /borrow:
     /:
       get:
@@ -147,7 +165,6 @@ protocols: [ HTTPS ]
             description: Borrow not found.
           500:
             description: An error was occurred.
-
   /category:
     /:
       get:
