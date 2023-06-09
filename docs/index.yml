@@ -130,6 +130,12 @@ protocols: [ HTTPS ]
             description: Save borrow.
           500:
             description: An error was occurred.
+    /{borrowId}:
+      get:
+        description: Get Info of one borrow
+        responses:
+          200:
+          404:
       put:
         description: Update One Borrow.
         body:
@@ -149,7 +155,6 @@ protocols: [ HTTPS ]
             description: Borrow not found.
           500:
             description: An error was occurred.
-    /{borrowId}:
       delete:
         description: Delete a Borrow
         queryParameters:
