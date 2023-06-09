@@ -6,227 +6,271 @@ mediaType: application/json
 version: v1
 protocols: [ HTTPS ]
 
-/book:
-  /:
-    get:
-      description: Get All Books.
-      responses:
-        204:
-          description: Get all books information's.
-        500:
-          description: An error was occurred.
-    post:
-      description: Create a Book.
-      body:
-        application/json:
-          type: object
-          example: |
-            {
-              "title": "Test",
-              "publication_date": "06/07/2023",
-              "page_number": 15
-            }
-      responses:
+/rest:
+  /book:
+    /:
+      get:
+        description: Get All Books.
+        responses:
+          204:
+            description: Get all books information's.
+          500:
+            description: An error was occurred.
+      post:
+        description: Create a Book.
+        body:
+          application/json:
+            type: object
+            example: |
+              {
+                "title": "Test",
+                "publication_date": "06/07/2023",
+                "page_number": 15
+              }
+        responses:
+          200:
+            description: Save book.
+          400:
+            description: Error with the passed parameters.
+            body:
+              application/json:
+                type: object
+                example: |
+                  {
+                      "timestamp": "2023-06-07T15:01:27.488+00:00",
+                      "status": 400,
+                      "error": "Bad Request",
+                      "path": "/book/"
+                  }
+          500:
+            description: An error was occurred.
+
+    /{bookId}:
+      get:
+        description: Get Book Info.
         200:
-          description: Save book.
-        400:
-          description: Error with the passed parameters.
-          body:
-            application/json:
-              type: object
-              example: |
-                {
-                	"timestamp": "2023-06-07T15:01:27.488+00:00",
-                	"status": 400,
-                	"error": "Bad Request",
-                	"path": "/book/"
-                }
-        500:
-          description: An error was occurred.
-    put:
-      description: Update One Book.
-      body:
-        application/json:
-          type: object
-          example: |
-            {
-              "bookId": 1,
-              "title": "Test",
-              "publication_date": "06/07/2023",
-              "page_number": 15,
-              "authors": "N/A",
-              "borrow": "N/A", 
-              "category": "N/A
-            }
-      responses:
-        204:
-          description: Update book.
-        400:
-          description: Error with the passed parameters.
+          description: Book info.
         404:
           description: Book not found.
         500:
           description: An error was occurred.
-  /{bookId}:
-    get:
-      description: Get Book Info.
-      200:
-        description: Book info.
-      404:
-        description: Book not found.
-      500:
-        description: An error was occurred.
-
-/borrow:
-  /:
-    get:
-      description: Get All Borrows.
+      put:
+        description: Update One Book.
+        body:
+          application/json:
+            type: object
+            example: |
+              {
+                "bookId": 1,
+                "title": "Test",
+                "publication_date": "06/07/2023",
+                "page_number": 15,
+                "authors": "N/A",
+                "borrow": "N/A", 
+                "category": "N/A
+              }
+        responses:
+          204:
+            description: Update book.
+          400:
+            description: Error with the passed parameters.
+          404:
+            description: Book not found.
+          500:
+            description: An error was occurred.
+      delete:
+        description: Delete a book
+        responses:
+          201:
+            description: Book deleted.
+          404:
+            description: Book not found.
+    /borrow-count:
+      get:
+        description: Get the number of loans over a given date range.
+        responses:
+          200:
+    /{bookId}/borrow-count:
+      get:
+        description: Get the number of loans per book
+        responses:
+          200:
+    /active-borrows:
+      description: Get the current loans
       responses:
         200:
-          description: Get all borrows information's.
-        204:
-          description: No borrow inserted in DB.
-        500:
-          description: An error was occurred.
-    post:
-      description: Create a Borrow.
-      body:
-        application/json:
-          type: object
-          example: |
-            {
-              "loan_date": "2023-06-07T15:01:27.488+00:00",
-              "expected_end_date": "2023-06-07T15:01:27.488+00:00",
-              "borrow_end": null
-            }
-      responses:
-        201:
-          description: Save borrow.
-        500:
-          description: An error was occurred.
-    put:
-      description: Update One Borrow.
-      body:
-        application/json:
-          type: object
-          example: |
-            {
-              "id": 1,
-              "loan_date": "2023-06-07T15:01:27.488+00:00",
-              "expected_end_date": "2023-06-07T15:01:27.488+00:00",
-              "borrow_end": "2023-06-07T15:01:27.488+00:00"
-            }
+    /search:
+      description: Search a books by author
       responses:
         200:
-          description: Update Borrow.
-        404:
-          description: Borrow not found.
-        500:
-          description: An error was occurred.
-  /{borrowId}:
-    delete:
-      description: Delete a Borrow
-      queryParameters:
-        id:
-          description: Borrow Id
-          type: integer
-          required: true
-          example: 1
-      responses:
-        204:
-          description: Delete borrow.
-        404:
-          description: Borrow not found.
-        500:
-          description: An error was occurred.
-
-/category:
-  /:
-    get:
-      description: Get All Categories.
-      responses:
-        200:
-          description: Get all categories information's.
-        204:
-          description: No category inserted in DB.
-        500:
-          description: An error was occurred.
-    post:
-      description: Create a Category.
-      body:
-        application/json:
-          type: object
-          example: |
-            {
-              "name": "Science"
-            }
-      responses:
-        201:
-          description: Save category.
-        500:
-          description: An error was occurred.
-  put:
-    description: Update One Category.
-    body:
-      application/json:
-        type: object
-        example: |
-          {
-            "id": 1,
-            "name": "New Science"
-          }
-    responses:
-      200:
-        description: Update Category.
-      404:
-        description: Category not found.
-      500:
-        description: An error was occurred.
-
-  /categoryId:
-    delete:
-      description: Delete a Category
-      queryParameters:
-        id:
-          description: Category Id
-          type: integer
-          required: true
-          example: 1
-      responses:
-        204:
-          description: Delete Category.
-        404:
-          description: Category not found.
-        500:
-          description: An error was occurred.
-/auth:
-  /register:
-    post:
-      description: Allows to create account
-      body:
-        application/json:
-          type: object
-          example: |
-            {
-              "email": "test@test.com",
-              "password": "test",
-              "firstname": "Test",
-              "lastname": "Test"
-            }
-      responses:
-        204:
-          description: User created.
-        400:
-          description: Error with the passed parameters.
-          body:
-            application/json:
-              type: object
-              example: |
-                {
-                  "timestamp": "2023-06-08T08:38:48.650+00:00",
-                  "status": 400,
-                  "error": "Bad Request",
-                  "path": "/auth/register"
-                }
-        500:
-          description: An error was occurred.
+  /borrow:
+    /:
+      get:
+        description: Get All Borrows.
+        responses:
+          200:
+            description: Get all borrows information's.
+          204:
+            description: No borrow inserted in DB.
+          500:
+            description: An error was occurred.
+      post:
+        description: Create a Borrow.
+        body:
+          application/json:
+            type: object
+            example: |
+              {
+                "loan_date": "2023-06-07T15:01:27.488+00:00",
+                "expected_end_date": "2023-06-07T15:01:27.488+00:00",
+                "borrow_end": null
+              }
+        responses:
+          201:
+            description: Save borrow.
+          500:
+            description: An error was occurred.
+    /{borrowId}:
+      get:
+        description: Get Info of one borrow
+        responses:
+          200:
+          404:
+      put:
+        description: Update One Borrow.
+        body:
+          application/json:
+            type: object
+            example: |
+              {
+                "id": 1,
+                "loan_date": "2023-06-07T15:01:27.488+00:00",
+                "expected_end_date": "2023-06-07T15:01:27.488+00:00",
+                "borrow_end": "2023-06-07T15:01:27.488+00:00"
+              }
+        responses:
+          200:
+            description: Update Borrow.
+          404:
+            description: Borrow not found.
+          500:
+            description: An error was occurred.
+      delete:
+        description: Delete a Borrow
+        queryParameters:
+          id:
+            description: Borrow Id
+            type: integer
+            required: true
+            example: 1
+        responses:
+          204:
+            description: Delete borrow.
+          404:
+            description: Borrow not found.
+          500:
+            description: An error was occurred.
+  /category:
+    /:
+      get:
+        description: Get All Categories.
+        responses:
+          200:
+            description: Get all categories information's.
+          204:
+            description: No category inserted in DB.
+          500:
+            description: An error was occurred.
+      post:
+        description: Create a Category.
+        body:
+          application/json:
+            type: object
+            example: |
+              {
+                "name": "Science"
+              }
+        responses:
+          201:
+            description: Save category.
+          500:
+            description: An error was occurred.
+    /categoryId:
+      get:
+        description: Get information on a category
+        responses:
+          200:
+          404:
+      put:
+        description: Update One Category.
+        body:
+          application/json:
+            type: object
+            example: |
+              {
+                "id": 1,
+                "name": "New Science"
+              }
+        responses:
+          200:
+            description: Update Category.
+          404:
+            description: Category not found.
+          500:
+            description: An error was occurred.
+      delete:
+        description: Delete a Category
+        queryParameters:
+          id:
+            description: Category Id
+            type: integer
+            required: true
+            example: 1
+        responses:
+          204:
+            description: Delete Category.
+          404:
+            description: Category not found.
+          500:
+            description: An error was occurred.
+  /auth:
+    /:
+      get:
+        description: Get all users.
+        responses:
+          200:
+            description: Get all users.
+          204:
+            description: Not user in DB.
+          500:
+            description: An error was occurred.
+    /register:
+      post:
+        description: Allows to create account.
+        body:
+          application/json:
+            type: object
+            example: |
+              {
+                "email": "test@test.com",
+                "password": "test",
+                "firstname": "Test",
+                "lastname": "Test"
+              }
+        responses:
+          204:
+            description: User created.
+          400:
+            description: Error with the passed parameters.
+            body:
+              application/json:
+                type: object
+                example: |
+                  {
+                    "timestamp": "2023-06-08T08:38:48.650+00:00",
+                    "status": 400,
+                    "error": "Bad Request",
+                    "path": "/auth/register"
+                  }
+          500:
+            description: An error was occurred.

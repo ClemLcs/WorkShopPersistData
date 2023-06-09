@@ -18,6 +18,8 @@ public class User {
     @Column(name = "pk_member", nullable = false)
     private Long id;
 
+    String name;
+
     String firstname;
 
     String lastname;

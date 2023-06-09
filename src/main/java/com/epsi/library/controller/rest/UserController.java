@@ -1,4 +1,4 @@
-package com.epsi.library.controller;
+package com.epsi.library.controller.rest;
 
 import com.epsi.library.entity.User;
 import com.epsi.library.repository.RoleRepository;
@@ -6,13 +6,13 @@ import com.epsi.library.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
-@RequestMapping(path = "/auth")
+@RequestMapping(path = "/rest/auth")
 public class UserController {
     @Autowired
     UserRepository userRepository;
@@ -34,6 +34,27 @@ public class UserController {
             return new ResponseEntity<>(_user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Allows to get all users
+     *
+     * @return 204 / 200 / 500 HTTP code
+     */
+    @GetMapping("")
+    public ResponseEntity<List<User>> getAll() {
+        try {
+            List<User> users = new ArrayList<User>();
+            userRepository.findAll().forEach(users::add);
+
+            if (users.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
